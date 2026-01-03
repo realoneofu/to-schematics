@@ -1,0 +1,128 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: black;
+    min-height: 100vh;
+    padding: 40px 20px;
+    color: #fff;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.rarity-section {
+    margin-bottom: 60px;
+    animation: fadeIn 0.6s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+h1 {
+    text-align: center;
+    font-size: 3em;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-weight: bold;
+}
+
+h3 {
+    text-align: center;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    color: #aaa;
+    font-weight: normal;
+}
+
+.rare-title {
+    color: rgb(21, 103, 255);
+}
+
+.epic-title {
+    color: rgb(195, 75, 255);
+}
+
+.legendary-title {
+    color: rgb(255, 145, 65);
+}
+
+.ultra-title {
+    color: rgb(255, 205, 0);
+}
+
+.exotic-title {
+    color: rgb(60, 255, 150);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+thead {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+th {
+    padding: 20px;
+    text-align: left;
+    font-size: 1.2em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+td {
+    padding: 15px 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 1.1em;
+}
+
+tr:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transition: background 0.3s ease;
+}
+
+.item-code {
+    color: #888;
+    font-family: 'Courier New', monospace;
+}
+
+.rare-text {
+    color: rgb(21, 103, 255);
+    font-weight: 600;
+}
+
+.epic-text {
+    color: rgb(195, 75, 255);
+    font-weight: 600;
+}
+
+.legendary-text {
+    color: rgb(255, 145, 65);
+    font-weight: 600;
+}
+
+.ultra-text {
+    color: rgb(255, 205, 0);
+    font-weight: 600;
+}
+
+.exotic-text {
+    color: rgb(60, 255, 150);
+    font-weight: 600;
+}

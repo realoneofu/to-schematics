@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Items by Rarity</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Transfur Outbreak Schematics Codes</h1>
+    <div class="container" id="app"></div>
+    <script>
+        const itemData = {
+            rare: {
+                "111": "Brass Knuckles",
+                "66": "Darkheart",
+                "2022": "Candy Cane",
+                "150915": "Chaos Saber",
+                "249": "SM249",
+                "12": "AA-12",
+                "1997": "Dragon Slayer",
+                "301022": "Jack-O Deagle",
+                "1212": "SPAS-12",
+                "270911": "Incompatible Spear",
+                "210717": "SCAR-H",
+                "240911": "Stop Sign",
+                "130217": "Fear",
+                "090417": "X-Blade",
+                "107": "Classic Sniper",
+                "110209": "Intervention",
+                "3784": "Dragon Katana",
+                "040722": "Flag V2",
+                "040423": "Boulder",
+                "78": "Heavy Vest"
+            },
+            epic: {
+                "105": "Blood Sword",
+                "210": "Soul Eater",
+                "666": "Crucible",
+                "6666": "Super Shotgun",
+                "777": "Diamond Queen",
+                "100": "Netherite Sword",
+                "101": "Enchanted Netherite Sword",
+                "123": "Crescendo",
+                "999": "Yamato",
+                "455": "Ghostwalker",
+                "28": "Hazmat",
+                "292": "RSAS",
+                "031122": "Hallow",
+                "762": "Lachmann-762",
+                "16": "M16",
+                "347": "Enchanted Diamond Sword"
+            },
+            legendary: {
+                "444": "Anamnesis",
+                "900": "Divine Avenger",
+                "888": "Devil Sword",
+                "666": "Horseman Blade",
+                "150": "Paracesis",
+                "420": "Holy Cross",
+                "911": "Titan",
+                "999": "Minigun",
+                "621": "Winchester",
+                "111": "Jarrett 50. Cal",
+                "080319": "Ebony & Ivory",
+                "301022": "Void",
+                "50": "Barrett 50. Cal",
+                "300615": "Meowmere",
+                "150915": "Dual Chaos Saber",
+                "5050": "Signal 50",
+                "1": "Ultra Shotgun",
+                "11": "Piercer",
+                "28": "Venomshank"
+            },
+            ultra: {
+                "700": "Void Blade",
+                "315": "Golden Armor Plate",
+                "30061569": "Enchanted Meowmere",
+                "452": "Gran Faust",
+                "699": "Carrot",
+                "1000": "Overcharged Mixmaster",
+                "355": "Milkor MGL",
+                "9000": "Reminiscence",
+                "455": "THE SCORCHER",
+                "20MM": "ANZIO 20MM"
+            },
+            exotic: [
+                "LostHazmat",
+                "Heartbreaker",
+                "Envy & Honor",
+                "AmethystVest",
+                "Ascendo",
+                "DIY Anamnesis",
+                "DIY Winchester",
+                "Anji",
+                "High Faith",
+                "Ol' Reliable",
+                "Pink Diamond Vest",
+                "Pink Diamond Queen",
+                "CHEESE-12",
+                "Serenity",
+                "Wisdom"
+            ]
+        };
+
+        function createTable(rarity, items, info) {
+            const rarityClass = rarity.toLowerCase();
+            const isExotic = Array.isArray(items);
+            
+            let tableHTML = `
+                <div class="rarity-section">
+                    <h1 class="${rarityClass}-title">${rarity}</h1>
+                    <h3 class="rarity-info">${info}</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                ${isExotic ? '' : '<th>Code</th>'}
+                                <th>Item Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+
+            if (isExotic) {
+                items.forEach(item => {
+                    tableHTML += `
+                        <tr>
+                            <td><span class="${rarityClass}-text">${item}</span></td>
+                        </tr>
+                    `;
+                });
+            } else {
+                Object.entries(items).forEach(([code, name]) => {
+                    tableHTML += `
+                        <tr>
+                            <td class="item-code">${code}</td>
+                            <td><span class="${rarityClass}-text">${name}</span></td>
+                        </tr>
+                    `;
+                });
+            }
+
+            tableHTML += `
+                        </tbody>
+                    </table>
+                </div>
+            `;
+
+            return tableHTML;
+        }
+
+        // Render all tables
+        const app = document.getElementById('app');
+        const rarityOrder = [
+            { name: 'rare', info: 'Most common schematics you can obtain via scrap farming. (0.75% drop chance)' },
+            { name: 'epic', info: 'Better schematics you can obtain via scrap farming. (0.28% drop chance)' },
+            { name: 'legendary', info: 'Best schematics you can obtain via scrap. (0.023% drop chance)' },
+            { name: 'ultra', info: 'These schematics are unobtainable from scrap farming according to the latest source code leak of the game.' },
+            { name: 'exotic', info: 'These items can be obtained via gamepasses. (Blueprints in store)' }
+        ];
+        
+        rarityOrder.forEach(({ name, info }) => {
+            app.innerHTML += createTable(name.charAt(0).toUpperCase() + name.slice(1), itemData[name], info);
+        });
+    </script>
+</body>
+</html>
