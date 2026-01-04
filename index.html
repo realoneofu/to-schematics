@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Transfur Outbreak Schematics</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <h1>Transfur Outbreak Schematics Codes</h1>
     <div class="container" id="app"></div>
@@ -52,23 +54,23 @@
                 "347": { name: "Enchanted Diamond Sword", price: 140000 }
             },
             legendary: {
-                "444": { name: "Anamnesis", price: 0 },
+                "444": { name: "Anamnesis", price: 400000 },
                 "900": { name: "Divine Avenger", price: 360000 },
                 "888": { name: "Devil Sword", price: 524000 },
-                "666": { name: "Horseman Blade", price: 0 },
-                "150": { name: "Paracesis", price: 0 },
+                "666": { name: "Horseman Blade", price: 1333332 },
+                "150": { name: "Paracesis", price: 480000 },
                 "420": { name: "Holy Cross", price: 1000000 },
-                "911": { name: "Titan Armor", price: 0 },
+                "911": { name: "Titan Armor", price: 200000 },
                 "999": { name: "Minigun", price: 0 },
-                "621": { name: "Winchester", price: 0 },
+                "621": { name: "Winchester", price: 162000 },
                 "111": { name: "Jarrett 50. Cal", price: 600000 },
-                "080319": { name: "Ebony & Ivory", price: 0 },
+                "080319": { name: "Ebony & Ivory", price: 200000 },
                 "301022": { name: "Void Armor", price: 100000 },
                 "50": { name: "Barrett 50. Cal", price: 504000 },
                 "300615": { name: "Meowmere", price: 900000 },
-                "150915": { name: "Dual Chaos Saber", price: 0 },
+                "150915": { name: "Dual Chaos Saber", price: 500000 },
                 "5050": { name: "Signal 50", price: 900000 },
-                "1": { name: "Ultra Shotgun", price: 0 },
+                "1": { name: "Ultra Shotgun", price: 307000 },
                 "11": { name: "Piercer", price: 230500 },
                 "28": { name: "Venomshank", price: 222222 }
             },
@@ -84,29 +86,31 @@
                 "455": "THE SCORCHER",
                 "20MM": "ANZIO 20MM"
             },
-            exotic: [
-                "LostHazmat",
-                "Heartbreaker",
-                "Envy & Honor",
-                "AmethystVest",
-                "Ascendo",
-                "DIY Anamnesis",
-                "DIY Winchester",
-                "Anji",
-                "High Faith",
-                "Ol' Reliable",
-                "Pink Diamond Vest",
-                "Pink Diamond Queen",
-                "CHEESE-12",
-                "Serenity",
-                "Wisdom"
-            ]
+            exotic: {
+                "1": { name: "Lost Hazmat", price: 0 },
+                "2": { name: "Heartbreaker", price: 0 },
+                "3": { name: "Envy & Honor", price: 0 },
+                "4": { name: "AmethystVest", price: 0 },
+                "5": { name: "Ascendo", price: 0 },
+                "6": { name: "DIY Anamnesis", price: 0 },
+                "7": { name: "DIY Winchester", price: 0 },
+                "8": { name: "Anji", price: 0 },
+                "9": { name: "High Faith", price: 150000 },
+                "10": { name: "Ol' Reliable", price: 209600 },
+                "11": { name: "Pink Diamond Vest", price: 0 },
+                "12": { name: "Pink Diamond Queen", price: 0 },
+                "13": { name: "CHEESE-12", price: 0 },
+                "14": { name: "Serenity", price: 0 },
+                "15": { name: "Wisdom", price: 0 },
+                "16": { name: "Angst", price: 524000 },
+                "17": { name: "Misery", price: 100000 },
+            }
+
         };
 
         function createTable(rarity, items, info, showPrice = false) {
             const rarityClass = rarity.toLowerCase();
-            const isExotic = Array.isArray(items);
-            
+
             let tableHTML = `
                 <div class="rarity-section">
                     <h1 class="${rarityClass}-title">${rarity}</h1>
@@ -114,7 +118,7 @@
                     <table>
                         <thead>
                             <tr>
-                                ${isExotic ? '' : '<th>#ID</th>'}
+                                ${rarityClass === 'exotic' ? '' : '<th>#ID</th>'}
                                 <th>Item Name</th>
                                 ${showPrice ? '<th>Price (blood)</th>' : ''}
                             </tr>
@@ -122,11 +126,15 @@
                         <tbody>
             `;
 
-            if (isExotic) {
-                items.forEach(item => {
+            if (rarityClass === 'exotic') {
+                Object.entries(items).forEach(([code, data]) => {
+                    const name = data.name || data;
+                    const price = data.price !== undefined ? data.price : '';
+                    const displayPrice = price === 0 ? 'Unknown' : price;
                     tableHTML += `
                         <tr>
-                            <td><span class="${rarityClass}-text">${item}</span></td>
+                            <td><span class="${rarityClass}-text">${name}</span></td>
+                            ${showPrice ? `<td class="item-price">${displayPrice}</td>` : ''}
                         </tr>
                     `;
                 });
@@ -161,12 +169,13 @@
             { name: 'epic', info: 'Better schematics you can obtain via scrap farming. (0.28% drop chance)', showPrice: true },
             { name: 'legendary', info: 'Best schematics you can obtain via scrap. (0.023% drop chance)', showPrice: true },
             { name: 'ultra', info: 'These schematics are unobtainable from scrap farming according to the latest source code leak of the game.', showPrice: false },
-            { name: 'exotic', info: 'These items can be obtained via gamepasses. (Blueprints in store)', showPrice: false }
+            { name: 'exotic', info: 'These items can be obtained via gamepasses. (Blueprints in store)', showPrice: true }
         ];
-        
+
         rarityOrder.forEach(({ name, info, showPrice }) => {
             app.innerHTML += createTable(name.charAt(0).toUpperCase() + name.slice(1), itemData[name], info, showPrice);
         });
     </script>
 </body>
+
 </html>
